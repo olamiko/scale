@@ -1,0 +1,17 @@
+name: scale
+description: A block that enables digital scales.
+type: sw.application
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/balenablocks/scale'
+  logo:
+    type: blob.asset
+    data:
+      url: 'https://raw.githubusercontent.com/balenablocks/scale/master/logo.png'
+data:
+  defaultDeviceType: raspberry-pi
+  supportedDeviceTypes:
+    - raspberrypi4-64
+version: 0.0.1
