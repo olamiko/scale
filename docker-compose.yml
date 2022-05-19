@@ -1,0 +1,7 @@
+version: '2.1'
+
+services:
+  scale: 
+    build: .
+    privileged: true
+    network_mode: host

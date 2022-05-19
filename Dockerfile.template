@@ -2,12 +2,12 @@ ARG BALENA_ARCH=%%BALENA_ARCH%%
 
 FROM balenalib/$BALENA_ARCH-debian-python
 
-WORKDIR /usr/src/app
+WORKDIR /home
 
-RUN apt-get update -y && apt-get install RPi.GPIO
-RUN pip install requests gpiozero paho-mqtt numpy
+RUN apt-get update -y && apt-get install build-essential
+RUN pip3 install requests gpiozero paho-mqtt numpy RPi.GPIO
 COPY . .
 
-WORKDIR /usr/src/app/hx711py
+WORKDIR hx711py
 
-CMD ["python", "app.py"]
+CMD ["python3", "example.py"]
