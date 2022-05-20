@@ -10,4 +10,4 @@ COPY . .
 
 WORKDIR hx711py
 
-CMD ["python3", "example.py"]
+CMD ["python3", "sensor.py"]
