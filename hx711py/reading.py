@@ -12,7 +12,7 @@ from hx711 import HX711
 class Reading:
     """Class for retrieving readings from devices."""
 
-    def _init_(self, reference_unit=None):
+    def __init__(self, reference_unit=None):
         self.hx = HX711(5, 6)
         self.hx.set_reading_format("MSB", "MSB")
         if reference_unit:
