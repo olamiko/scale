@@ -41,8 +41,8 @@ def mqtt_detect():
 class balenaSense():
     
     def __init__(self):
-        self.sensor = Reading()
-        #self.sensor = Reading(125)
+        #self.sensor = Reading()
+        self.sensor = Reading(239)
 
     def sample(self):
         return self.sensor.get_readings()
