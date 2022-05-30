@@ -42,7 +42,7 @@ class balenaSense():
     
     def __init__(self):
         self.sensor = Reading()
-        #self.sensor = Reading(1)
+        #self.sensor = Reading(125)
 
     def sample(self):
         return self.sensor.get_readings()
@@ -69,14 +69,14 @@ if __name__ == "__main__":
 
     mqtt_address = os.getenv('MQTT_ADDRESS', 'none')
     use_httpserver = os.getenv('ALWAYS_USE_HTTPSERVER', 0)
-    publish_interval = os.getenv('MQTT_PUB_INTERVAL', '8')
+    publish_interval = os.getenv('MQTT_PUB_INTERVAL', '0.5')
     publish_topic = os.getenv('MQTT_PUB_TOPIC', 'sensors')
     
     try:
         interval = float(publish_interval)
     except Exception as e:
         print("Error converting MQTT_PUB_INTERVAL: Must be integer or float! Using default.")
-        interval = 8
+        interval = 0.5
         
     if use_httpserver == "1":
         enable_httpserver = "True"
@@ -116,7 +116,14 @@ if __name__ == "__main__":
 
         t = threading.Thread(target=background_web, args=(server_socket,))
         t.start()
-
+    
+    
+    #while True:
+    #    balenasense = balenaSense()
+    #    while True:
+    #        print(balenasense.sample())
+    #        time.sleep(interval)
+    
     while True:
         if mqtt_address != "none":
             client.publish(publish_topic, json.dumps(balenasense.sample()))
