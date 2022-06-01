@@ -23,7 +23,10 @@ class Reading:
         print("Tare done! Add weight now...")
 
     def set_reference_unit(self, reference_unit):
-        self.hx.reference_unit = reference_unit
+        try:
+            self.hx.reference_unit = int(reference_unit)
+        except:
+            self.clean_and_exit()
 
     def get_readings(self):
         """Write the readings for the current context."""
