@@ -40,9 +40,9 @@ def mqtt_detect():
 
 class balenaSense():
     
-    self.calibration_value = os.getenv('CALIBRATION_VALUE', None)
 
     def __init__(self):
+        self.calibration_value = os.getenv('CALIBRATION_VALUE', None)
         self.sensor = Reading(self.calibration_value)
 
     def sample(self):
