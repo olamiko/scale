@@ -43,6 +43,7 @@ class balenaSense():
 
     def __init__(self):
         self.calibration_value = os.getenv('CALIBRATION_VALUE', None)
+        print('Calibration value is', self.calibration_value)
         self.sensor = Reading(self.calibration_value)
 
     def sample(self):

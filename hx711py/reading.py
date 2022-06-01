@@ -16,17 +16,13 @@ class Reading:
         self.hx = HX711(5, 6)
         self.hx.set_reading_format("MSB", "MSB")
         if reference_unit:
-            self.set_reference_unit(reference_unit)
+            #self.set_reference_unit(reference_unit)
+            self.hx.set_reference_unit(float(reference_unit))
+            print("HX Reference unit is ", self.hx.REFERENCE_UNIT)
         self.hx.reset()
         self.hx.tare()
 
         print("Tare done! Add weight now...")
-
-    def set_reference_unit(self, reference_unit):
-        try:
-            self.hx.reference_unit = int(reference_unit)
-        except:
-            self.clean_and_exit()
 
     def get_readings(self):
         """Write the readings for the current context."""
@@ -37,6 +33,7 @@ class Reading:
         reading = {}
         try:
             val = max(0, int(self.hx.get_weight(5)))
+            val = self.hx.get_weight(5)
             
             if sensor_id:
                 reading.update({"sensor_id": sensor_id}) 
@@ -51,7 +48,7 @@ class Reading:
         return reading
 
 
-    def clean_and_exit():
+    def clean_and_exit(self):
         print("Cleaning...")
 
         GPIO.cleanup()
