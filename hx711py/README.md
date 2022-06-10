@@ -1,26 +1,43 @@
 # HX711 for Raspbery Py
 ----
-Quick code credited to [underdoeg](https://github.com/underdoeg/)'s [Gist HX711.py](https://gist.github.com/underdoeg/98a38b54f889fce2b237).
-I've only made a few modifications on the way the captured bits are processed and to support Two's Complement, which it didn't.
+HX711 code credited to [tatobari](https://github.com/tatobari)'s [HX711.py](https://github.com/tatobari/hx711py).
 
-Update: 25/02/2021
-----
-For the past years I haven't been able to maintain this library because I had too much workload. Now I'm back and I've been working on a few fixes and modifications to simplify this library, and I might be commiting the branch by mid-March. I will also publish it to PIP.
+I've only made a few modifications on the way the captured bits are processed and to support Two's Complement, which it didn't.
 
 Instructions
 ------------
-Check example.py to see how it works.
 
-Installation
-------------
-1. Clone or download and unpack this repository
-2. In the repository directory, run
-```
-python setup.py install
-```
+* Include this block in your docker compose file using:
+  ```
+  image: bh.cr/olamide_omolola/scales
+  ```
+
+* Calibrate the block using the following steps:
+  * Take a known object whose weight you know and place it on the scale.
+  * Read the scale value (a positive or negative value) and divide by the weight of that object in grams
+  * Add the calibration value in the `Device Variables` section of the balena dashboard OR include it in the docker-compose file as below:
+    ```
+      scale:
+        image: bh.cr/olamide_omolola/scales
+        restart: always
+        privileged: true
+        labels:
+          io.balena.features.kernel-modules: '1'
+          io.balena.features.sysfs: '1'
+          io.balena.features.supervisor-api: '1'
+        environment: 
+          - CALIBRATION_VALUE=-254.1
+
+    ```
+
 
 Using a 2-channel HX711 module
 ------------------------------
+This block does not support a 2-channel HX711 module but the underlying library does. 
+It is trivial to add the block support but I chose to keep the block small without unnecessary bloat.
+
+For adding a 2-channel HX711 module, follow [tatobari](https://github.com/tatobari)'s instructions below: 
+
 Channel A has selectable gain of 128 or 64.  Using set_gain(128) or set_gain(64)
 selects channel A with the specified gain.
 
